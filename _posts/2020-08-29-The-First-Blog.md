@@ -2,7 +2,7 @@
 layout: post
 title:  "The first blog!"
 date:   2020-08-29 00:05
-author: Jekyll
+author: Amin Charusaie
 ---
 Here I write down my first post in this blog. Time is `00:05` and I need to bike to my home after writing this very short post.
 
