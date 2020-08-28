@@ -1,9 +1,9 @@
 # Site settings
-title: Jekyll Doc Theme
-email: your-email@domain.com
+title: Amin's Blog
+email: mcharusaie@mpg.tuebingen.mpg.de
 description: >
-  Jekyll Template for Project Websites
-  providing documentation and blog post pages.
+  Probably will be updated approximately once in two weeks
+  on mathematical or ML topics of my interest.
 lang: en-US
 
 baseurl: "/jekyll-doc-theme" # the subpath of your site, e.g. /blog/
