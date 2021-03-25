@@ -10,7 +10,7 @@ This blog post was the thing I was thinking for a long time. However, I guess ri
 
 I am interested in `math` and also trying to wander around `ML` topics that I find interesting. Hence, the topics in this blog will also be similar.
 
-Less than two weeks, my first blog on [maximum differential entropy][max-ent] for a class of random variables. 
+Later on, I will publish something on [maximum differential entropy][max-ent] for a class of random variables. 
 
 
 [max-ent]:     https://en.wikipedia.org/wiki/Principle_of_maximum_entropy

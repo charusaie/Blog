@@ -1,0 +1,162 @@
+---
+layout: post
+title:  "Stationary Policies Are Optimal!"
+date:   2020-08-29 00:05
+author: Amin Charusaie
+---
+
+I was reading this lecture note by Csaba, where he mentioned for every
+policy, there exists a stationary policy with the same value. However,
+he just briefly gave a hint about the form such stationary policy. In
+this blog, mostly inspired by (Syed et. al 2008), I will write
+the proof of such claim using the notion of Bellman Flow Constraints.
+
+The problem of Markov Decision Processes is to find the optimal set of
+actions $a_t\in {\cal A}_{t}$ in each time $t$ where we have states
+$s\in {\cal S}_t$, to maximize the return
+$R = \sum_{t=0}^{\infty} \gamma^t r(a_t|s_t)$, where $r(s_t, a_t)$ is an
+immediate discounted reward in time $t$ for current-state/chosen-action
+pair $(s_t, a_t)$. Furthermore, the environment response to the action
+is encoded as $p(s_{t+1}|s_t, a_t)$. Such a behavior for the environment
+and rewards makes us name this process a 'Markov Decision Process'.
+
+The policy is the set of functions in each time $\pi=\{\pi_t\}_t$ from
+previous history of states
+$(s_0, \ldots, s_t)\in {\cal S}_0\times \ldots \times {\cal S}_t$ to a
+distribution on actions, which by abuse of notation we refer to as
+$\pi_t(a_t|s_1, \ldots, s_t)$. A policy is Markov, if the functions are
+only functions of the last state $s_t$. If a policy is memoryless and
+$\pi_1=\pi_2=\ldots$, then the policy is **stationary**. Further, we set
+a distribution $\mu$ on initial states of the process.
+
+To simplify our calculations, we define **occupancy measure** for a
+policy as below $$\begin{aligned}
+        v_{\mu}^{\pi}(s, a)= \sum_{t=0}^{\infty}\gamma^t p_{\mu}^{\pi} (s_t=s, a_t=a),
+     \end{aligned}$$ where $p_{\mu}^{\pi}(s_t=s, a_t=a)$ is the
+probability that with initial distribution $\mu$ and policy $\pi$, in
+time $t$, we face state $s$ and we take action $t$.
+
+Then, we can rewrite the expected return, also referred as value
+function for the policy $\pi$ and initial distribution $\mu$, as
+
+$$\begin{aligned}
+        v^{\pi}(\mu) &= \mathbb{E}_{\mu, \pi}\Big[\sum_{t=0}^{\infty} \gamma^t r( s_t, a_t)\Big] = \sum_{t=0}^{\infty} \gamma^t \sum_{s, a}r( s, a) p(s_t=s, a_t=a)\\
+        &=  \sum_{s, a} r(s, a)\sum_{t=0}^{\infty}\gamma^t p(s_t=s, a_t=a) = \sum_{s, a} r(s, a) v_{\mu}^{\pi}(s, a)\\
+        &:= \langle r, v_{\mu}^{\pi}\rangle.
+     \end{aligned}$$
+
+Such a mathematical argument concludes that to calculate the value
+function, one only needs to have the occupancy measure in hand.
+Moreover, it shows that to optimize the value function one needs to
+align the occupancy measure vector to the reward vector as much as
+possible.
+
+Then we go to the main problem, which is, for every policy $\pi$, there
+is a stationary policy $\overline{\pi}$ with the same value function.
+Using above discussion, to prove such a statement, we only need to prove
+that the occupancy measure of $\pi$ and $\overline{\pi}$ are equal.
+
+For showing the equality, first we define **$\overline{\pi}$-specific
+Bellman's flow constraints** for a function (vector) $x(s, a)$,
+stationary policy $\overline{\pi}(a|s)$, environment dynamics
+$p(s'|s, a)$, and initial distribution $\mu(s)$ as below
+$$\begin{aligned}
+        x(s, a)&\geq 0\\
+        x(s, a)&= \overline{\pi}(a|s)\mu(s) +\gamma \overline{\pi}(a|s)\sum_{s', a'} x(s', a')p(s|s', a').\label{eqn: pispecific}
+     \end{aligned}$$ Further, we say $x(s, a)$ satisfies general form of
+**Bellman's flow constraints** if $$\begin{aligned}
+        x(s, a)&\geq 0\\
+        \sum_{a}x(s, a)&= \mu(s) +\gamma \sum_{s', a'} x(s', a')p(s|s', a').
+     \end{aligned}$$
+
+Note: Every function that satisfies $\pi$-specific Bellman's flow
+constraints, also satisfies general form of Bellman's flow constraints.
+
+Next, we proceed proving the equality in the following steps:
+
+1.  **The occupancy measure of a stationary policy $\overline{\pi}(a|s)$
+    is the unique solution of $\pi$-specific Bellman's flow
+    constraints.**
+
+2.  **Every stationary policy $\overline{\pi}(a|s)$ and its occupancy
+    measure $v_{\mu}^{\overline{\pi}}(s, a)$ satisfy the equation
+    $\overline{\pi}(a|s) = \frac{v_{\mu}^{\overline{\pi}}(s, a)}{\sum_{a} v_{\mu}^{\overline{\pi}}(s, a)}$.**
+
+3.  **Every occupancy measure satisfies Bellman's flow constraints.**
+
+4.  **Every function $x(s, a)$ that satisfies Bellman's flow constraint
+    is an occupancy measure of a stationary policy
+    $\overline{\pi}(a|s)=\frac{x(s, a)}{\sum_{a}x(s, a)}$.**
+
+5.  **For every policy $\pi$, the occupancy measure
+    $v_{\mu}^{\pi}(s, a)$ is also the occupancy measure of stationary
+    policy
+    $\overline{\pi}(s|a)=\frac{v_{\mu}^{\pi}(s, a)}{\sum_{a}v_{\mu}^{\pi}(s, a)}$.**
+
+Let's go to each step:
+
+1.  First we prove the occupancy measure
+    $v_{\mu}^{\overline{\pi}}(s, a)$ is a solution of
+    $\overline{\pi}$-specific Bellman's constraints. We already know
+    that the occupancy measure is positive. Hence, it is remained to
+    show [\[eqn: pispecific\]](#eqn: pispecific){reference-type="eqref"
+    reference="eqn: pispecific"}. One can rewrite
+    $v_{\mu}^{\overline{\pi}}(s, a)$ as $$\begin{aligned}
+                v_{\mu}^{\overline{\pi}}(s, a)&= \mu(s)\overline{\pi}(a|s)+\gamma\sum_{t=0}^{\infty} \gamma^t p_{\mu}^{\pi}(s_{t+1}=s, a_{t+1}=a)\\
+                &=\mu(s)+\gamma\sum_{t=0}^{\infty} \gamma^t \sum_{s', a'}p_{\mu}^{\pi}(s_t=s', a_t=a') p(s|s', a') \overline{\pi}(a|s)
+                \\&= \mu(s)\overline{\pi}(a|s)+\gamma\overline{\pi}(a|s) \sum_{s', a'}  p(s|s', a')\sum_{t=0}^{\infty} \gamma^t p_{\mu}^{\pi}(s_t=s', a_t=a')
+                \\&= \mu(s)\overline{\pi}(a|s)+\gamma \overline{\pi}(a|s)\sum_{s', a'} p(s|s', a')v_{\mu}^{\overline{\pi}}(s', a'), \label{eqn: occupancy_bellman}
+             \end{aligned}$$ which shows that the occupancy measure is a
+    solution of $\overline{\pi}$-specific Bellman's flow constraints.
+
+    You might then wonder why don't we have more solutions? The idea is
+    simple. One can rewrite $\overline{\pi}$-specific Bellman's flow
+    equality as $Ax=b$ where $A$ has elements $$\begin{aligned}
+                A_{sa, s'a'}=\left\{\begin{array}{c c}
+                    1-\gamma \overline{\pi}(a|s)p(s|s' a') & s'a'=sa,\\
+                    -\gamma \overline{\pi}(a|s)p(s|s' a') & o.w.
+                \end{array}\right.
+             \end{aligned}$$ Then, one can simply show the absolute sum
+    of non-diagonal elements of the matrix over $(s, a)$ is less than
+    diagonal element of the column. Then, we can use Gershgorin's circle
+    theorem which explains the eigenvalues of a matrix are inside a
+    circle with the center of diagonal elements and radius of sum of
+    non-diagonal elements. Then we can see that the matrix $A$ does not
+    have any zero-valued eigenvalue, and hence, it is non-singular, and
+    has at most one solution.
+
+2.  Using previous section, we know that $v_{\mu}^{\overline{\pi}}$
+    satisfies $\overline{\pi}$-specific Bellman's flow constraints, and
+    consequently general form of Bellman's flow constraints which can be
+    written as $$\begin{aligned}
+                v_{\mu}^{\overline{\pi}}(s, a) = \mu(s) +\gamma \sum_{s', a'} p(s|s', a') v_{\mu}^{\overline{\pi} }(s', a').
+             \end{aligned}$$ Using this fact and
+    [\[eqn: occupancy\_bellman\]](#eqn: occupancy_bellman){reference-type="eqref"
+    reference="eqn: occupancy_bellman"} one can prove the second step.
+
+3.  Similar to the first step, we rewrite the occupancy measure and show
+    the statement $$\begin{aligned}
+                \sum_{a} v_{\mu}^{\pi}(s, a)&=\sum_{t=0}^{\infty} \gamma^t p_{\mu}^{\pi}(s_t = s)\\& = \mu(s)+\gamma \sum_{t=0}^{\infty} \gamma^t \sum_{s', a'}p_{\mu}^{\pi}(s_{t}=s', a_{t}=a')p(s|s', a')\\
+                &=\mu(s)+\gamma\sum_{a', s'} v_{\mu}^{\pi}(s', a')p(s|s', a').
+             \end{aligned}$$ Note that in the first equality
+    $p_{\mu}^{\pi}(s_t=s)=\sum_{a} p_{\mu}^{\pi}(s_t=s, a_t=a)$, and the
+    second equality is true, because $p_{\mu}^{\pi}(s_0=s) =\mu(s)$ and
+    $$p_{\mu}^{\pi}(s_{t+1}=s, a_{t+1}=a) = \sum_{s', a'}p_{\mu}^{\pi}(s_{t}=s', a_{t}=a')p(s|s', a').$$
+
+4.  Since
+
+    $$\begin{aligned}
+     \overline{\pi}(a|s)= \frac{x(s, a)}{\sum_{a} x(s, a)} = \frac{x(s, a)}{\mu(s)+\gamma \sum_{s', a'} x (s', a') p (s|s', a')}, \end{aligned}$$
+
+    then $x(s, a)$ satisfies $\overline{\pi}$-specific Bellman flow
+    constraint, which using the first step, $x(s, a)$ is the occupancy
+    measure of $\overline{\pi}$.
+
+5.  Using the third step, the occupancy measure satisfies general form
+    of Bellman's flow constraints. Then using the fourth step, it is
+    also an occupancy measure of the mentioned stationary policy. Hence,
+    the statement is proved.
+
+## Bibliography
+  U.Syed, M. Bowling, and R. E. Schapire, “Apprenticeship learning using linear programming,” in Proceedings of the 25th international conference on Machine learning, 2008, pp. 1032–1039.
+
