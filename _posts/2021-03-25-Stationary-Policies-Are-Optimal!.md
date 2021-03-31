@@ -15,7 +15,7 @@
       text-justify: inter-word;
       }
       p {
-      font-size: 18px;
+      font-size: 25px;
       }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
