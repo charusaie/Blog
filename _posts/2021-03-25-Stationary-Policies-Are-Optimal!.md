@@ -47,7 +47,7 @@
         \sum_{a}x(s, a)&amp;= \mu(s) +\gamma \sum_{s&#39;, a&#39;} x(s&#39;, a&#39;)p(s|s&#39;, a&#39;).
      \end{aligned}\]</span></p>
 <p>Note: Every function that satisfies <span class="math inline">\(\pi\)</span>-specific Bellman’s flow constraints, also satisfies the general form of Bellman’s flow constraints.</p>
-<p>Next, we proceed proving the equality in the following steps:</p>
+<p>Next, we proceed to prove the equality in the following steps:</p>
 <ol>
 <li><p><span><strong>The occupancy measure of a stationary policy <span class="math inline">\(\overline{\pi}(a|s)\)</span> is the unique solution of <span class="math inline">\(\pi\)</span>-specific Bellman’s flow constraints.</strong></span></p></li>
 <li><p><span><strong>Every stationary policy <span class="math inline">\(\overline{\pi}(a|s)\)</span> and its occupancy measure <span class="math inline">\(v_{\mu}^{\overline{\pi}}(s, a)\)</span> satisfy the equation <span class="math inline">\(\overline{\pi}(a|s) = \frac{v_{\mu}^{\overline{\pi}}(s, a)}{\sum_{a} v_{\mu}^{\overline{\pi}}(s, a)}\)</span>.</strong> </span></p></li>
@@ -68,7 +68,7 @@
                 1-\gamma \overline{\pi}(a|s)p(s|s&#39; a&#39;) &amp; s&#39;a&#39;=sa,\\
                 -\gamma \overline{\pi}(a|s)p(s|s&#39; a&#39;) &amp; o.w.
             \end{array}\right.
-         \end{aligned}\]</span> Then, one can simply show the absolute sum of non-diagonal elements of the matrix over <span class="math inline">\((s, a)\)</span> is less than diagonal element of the column. Then, we can use <a href="https://en.wikipedia.org/wiki/Gershgorin_circle_theorem"> Gershgorin’s circle theorem</a>, which explains the eigenvalues of a matrix are inside a circle with the center of diagonal elements and radius of a sum of non-diagonal elements. Then we can see that the matrix <span class="math inline">\(A\)</span> does not have any zero-valued eigenvalue, and hence, it is non-singular, and has at most one solution.</p></li>
+         \end{aligned}\]</span> Then, one can simply show the absolute sum of non-diagonal elements of the matrix over <span class="math inline">\((s, a)\)</span> is less than the diagonal element of the column. Then, we can use <a href="https://en.wikipedia.org/wiki/Gershgorin_circle_theorem"> Gershgorin’s circle theorem</a>, which explains the eigenvalues of a matrix are inside a circle with the center of diagonal elements and radius of a sum of non-diagonal elements. Then we can see that matrix <span class="math inline">\(A\)</span> does not have any zero-valued eigenvalue, and hence, it is non-singular and has at most one solution.</p></li>
 <li><p>Using the previous section, we know that <span class="math inline">\(v_{\mu}^{\overline{\pi}}\)</span> satisfies <span class="math inline">\(\overline{\pi}\)</span>-specific Bellman’s flow constraints, and consequently the general form of Bellman’s flow constraints which can be written as <span class="math display">\[\begin{aligned}
             v_{\mu}^{\overline{\pi}}(s, a) = \mu(s) +\gamma \sum_{s&#39;, a&#39;} p(s|s&#39;, a&#39;) v_{\mu}^{\overline{\pi} }(s&#39;, a&#39;).
          \end{aligned}\]</span> Using this fact and <a href="#eqn: occupancy_bellman" data-reference-type="eqref" data-reference="eqn: occupancy_bellman">this equation</a>, one can prove the second step.</p></li>
